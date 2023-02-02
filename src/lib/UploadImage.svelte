@@ -20,6 +20,6 @@
 
 <style>
   .upload-image-container {
-    margin: 20px;
+    width: 80%;
   }
 </style>
