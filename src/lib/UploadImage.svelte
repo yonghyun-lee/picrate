@@ -2,7 +2,6 @@
   import { uploadedImage } from '../store/store';
 
   function handleChange(event: Event) {
-    console.log(event);
     uploadedImage.set((event.target as HTMLInputElement).files[0]);
   }
 </script>
