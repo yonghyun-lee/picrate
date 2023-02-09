@@ -25,6 +25,7 @@
   <div
     class="field"
     style={`position: absolute; left: ${field.x}px; top: ${field.y}px;`}
+    on:mousedown={(e) => e.stopPropagation()}
   >
     <button
       class="field-button w-3.5 h-3.5 bg-blue-400 border-2 border-white dark:border-gray-800 rounded-full"

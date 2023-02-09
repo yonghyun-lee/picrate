@@ -44,6 +44,5 @@
 <style>
   .upload-image-container {
     width: 80%;
-    margin: auto;
   }
 </style>

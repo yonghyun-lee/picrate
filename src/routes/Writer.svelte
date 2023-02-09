@@ -28,7 +28,7 @@
     subscribes.forEach((sub) => sub());
   });
 
-  function handleClickLabel(event: MouseEvent) {
+  function handleClick(event: MouseEvent) {
     if (fields.length > 10) {
       return;
     }
@@ -48,9 +48,9 @@
     <h1 class="guide">평가받고 싶은 사진을<br /> 올려주세요</h1>
     <UploadImage />
   {:else}
-    <div class="image-container">
+    <div class="image-container" on:mousedown={handleClick}>
       <!-- svelte-ignore a11y-img-redundant-alt -->
-      <img src={imageUrl} alt="rate picture" on:mousedown={handleClickLabel} />
+      <img src={imageUrl} alt="rate picture" />
       <Fields />
     </div>
     <button
@@ -64,12 +64,15 @@
 <style>
   .init-page {
     width: 100%;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .guide {
     font-size: 20px;
-    margin: 150px 0 30px 0;
+    margin-bottom: 30px;
   }
 
   img {
@@ -80,9 +83,9 @@
   .image-container {
     position: relative;
     display: inline-block;
-    margin-top: 50px;
     border: 1px solid black;
     width: 400px;
     height: 400px;
+    margin-bottom: 10px;
   }
 </style>
