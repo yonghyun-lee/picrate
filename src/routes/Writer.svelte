@@ -20,15 +20,20 @@
   );
 
   $: fields = [];
-  function handleClick(event: MouseEvent) {
+  function handleClickLabel(event: MouseEvent) {
     if (fields.length > 10) {
       return;
     }
     fields = fields.concat({
       label: '클릭 수정',
-      x: event.offsetX,
-      y: event.offsetY,
+      x: event.offsetX - 8,
+      y: event.offsetY - 8,
       isOpen: false,
+    });
+  }
+  function handleClickClose(x: number, y: number) {
+    fields = fields.filter((field) => {
+      return !(field.x === x && field.y === y);
     });
   }
 </script>
@@ -38,9 +43,9 @@
     <h1 class="guide">평가받고 싶은 사진을<br /> 올려주세요</h1>
     <UploadImage />
   {:else}
-    <div class="touchable-field">
+    <div class="image-container">
       <!-- svelte-ignore a11y-img-redundant-alt -->
-      <img src={imageUrl} alt="rate picture" on:mousedown={handleClick} />
+      <img src={imageUrl} alt="rate picture" on:mousedown={handleClickLabel} />
       {#each fields as field, index (index)}
         <div
           class="field"
@@ -57,7 +62,7 @@
             class="absolute z-10 inline-block w-32 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
           >
             <div
-              class="flex items-center justify-center field-title px-2 py-1 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700"
+              class="relative flex items-center justify-center field-title px-2 py-1 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700"
             >
               {#if field.isOpen}
                 <input
@@ -80,9 +85,26 @@
                   {field.label}
                 </h4>
               {/if}
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                width="15px"
+                class="close"
+                on:click={() => handleClickClose(field.x, field.y)}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </div>
             <div class="px-3 py-2">
-              <Rating />
+              <Rating disabled />
             </div>
           </div>
         </div>
@@ -90,7 +112,7 @@
     </div>
     <button
       type="button"
-      class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      class="margin-auto text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
       >저장하기</button
     >
   {/if}
@@ -98,15 +120,13 @@
 
 <style>
   .init-page {
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    align-items: center;
+    display: block;
   }
 
   .guide {
     font-size: 20px;
-    margin-bottom: 30px;
+    margin: 150px 0 30px 0;
   }
 
   .field {
@@ -121,15 +141,23 @@
     width: 15px;
     height: 15px;
   }
-  img {
-    margin: 10px;
-    max-width: 90%;
-    max-height: 80%;
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    cursor: pointer;
   }
-  .touchable-field {
-    flex: 1;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .image-container {
     position: relative;
-    display: flex;
-    justify-content: center;
+    display: inline-block;
+    margin-top: 50px;
+    border: 1px solid black;
+    width: 400px;
+    height: 400px;
   }
 </style>
