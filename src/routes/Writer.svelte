@@ -48,7 +48,10 @@
     <h1 class="guide">평가받고 싶은 사진을<br /> 올려주세요</h1>
     <UploadImage />
   {:else}
-    <div class="image-container" on:mousedown={handleClick}>
+    <div
+      class="image-container border border-gray-400 rounded"
+      on:mousedown={handleClick}
+    >
       <!-- svelte-ignore a11y-img-redundant-alt -->
       <img src={imageUrl} alt="rate picture" />
       <Fields />
@@ -83,7 +86,6 @@
   .image-container {
     position: relative;
     display: inline-block;
-    border: 1px solid black;
     width: 400px;
     height: 400px;
     margin-bottom: 10px;
