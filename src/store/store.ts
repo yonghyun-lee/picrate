@@ -3,3 +3,4 @@ import type { Field } from '../types';
 
 export const uploadedImage = writable<null | File>(null);
 export const currentFields = writable<Field[]>([]);
+export const shareId = writable<string | undefined>(undefined);

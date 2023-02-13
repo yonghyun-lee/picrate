@@ -1,9 +1,10 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import type { Unsubscriber } from 'svelte/store';
+  import { api } from '../api';
   import Fields from '../lib/Fields.svelte';
   import UploadImage from '../lib/UploadImage.svelte';
-  import { uploadedImage, currentFields } from '../store/store';
+  import { uploadedImage, currentFields, shareId } from '../store/store';
 
   let imageUrl: null | string = null;
   let fields = [];
@@ -41,6 +42,25 @@
       })
     );
   }
+
+  async function handleSubmit() {
+    if (!imageUrl) {
+      alert('사진이 없습니다.');
+      return;
+    }
+
+    console.log(`${import.meta.env.VITE_API_URL}/card`);
+    const response = await api.post(
+      `${import.meta.env.VITE_API_URL}/card`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+    shareId.set(response.data.data.id);
+  }
 </script>
 
 <div class="init-page">
@@ -59,7 +79,7 @@
     <button
       type="button"
       class="margin-auto text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-      >저장하기</button
+      on:click={handleSubmit}>저장하기</button
     >
   {/if}
 </div>
