@@ -44,5 +44,6 @@
 <style>
   .upload-image-container {
     width: 80%;
+    z-index: 1;
   }
 </style>

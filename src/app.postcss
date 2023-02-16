@@ -2,12 +2,20 @@
 
 @tailwind base;
 
+@font-face {
+  font-family: 'Humanbumsuk';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Humanbumsuk.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
   overflow: hidden;
+  font-family: 'Humanbumsuk';
 }
 
 #app {
@@ -21,6 +29,13 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+button.pink {
+  background-color: 	#FB607F;
+}
+button.pink:hover {
+  background-color: #FAA0A0;
 }
 
 @tailwind components;

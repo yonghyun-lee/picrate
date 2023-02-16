@@ -49,7 +49,6 @@
       return;
     }
 
-    console.log(`${import.meta.env.VITE_API_URL}/card`);
     const response = await api.post(
       `${import.meta.env.VITE_API_URL}/card`,
       {},
@@ -65,7 +64,8 @@
 
 <div class="init-page">
   {#if !imageUrl}
-    <h1 class="guide">평가받고 싶은 사진을<br /> 올려주세요</h1>
+    <img class="background" src="../public/background.jpg" alt="background" />
+    <h1 class="guide">평가받고 싶은 사진을<br /> 올려주세요!</h1>
     <UploadImage />
   {:else}
     <div
@@ -73,12 +73,12 @@
       on:mousedown={handleClick}
     >
       <!-- svelte-ignore a11y-img-redundant-alt -->
-      <img src={imageUrl} alt="rate picture" />
+      <img class="upload-image" src={imageUrl} alt="rate picture" />
       <Fields />
     </div>
     <button
       type="button"
-      class="margin-auto text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      class="pink margin-auto text-white focus:ring-4 focus:ring-pink-300 font-medium rounded-lg text-xs px-5 py-2.5 mr-2 mb-2 focus:outline-none"
       on:click={handleSubmit}>저장하기</button
     >
   {/if}
@@ -93,12 +93,22 @@
     align-items: center;
   }
 
-  .guide {
-    font-size: 20px;
-    margin-bottom: 30px;
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.8;
   }
 
-  img {
+  .guide {
+    font-size: 30px;
+    margin-bottom: 30px;
+    z-index: 1;
+  }
+
+  .upload-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
