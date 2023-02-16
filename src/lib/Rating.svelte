@@ -2,19 +2,19 @@
   import Star from './Star.svelte';
 
   export let disabled = false;
+  export let value: number | null = null;
 
   const STAR_COUNT = 5;
-  let activeValue = -1;
 
   function handleClick(index: number) {
-    activeValue = index;
+    value = index + 1;
   }
 </script>
 
 <div class="rating-container">
-  {#each Array(STAR_COUNT) as _, index (`${index}-${index <= activeValue}`)}
+  {#each Array(STAR_COUNT) as _, index (`${index}-${value !== null ? index < value : false}`)}
     <Star
-      value={index <= activeValue}
+      value={value !== null ? index < value : false}
       {disabled}
       on:click={() => handleClick(index)}
     />

@@ -85,14 +85,6 @@
 </div>
 
 <style>
-  .init-page {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
   .background {
     position: absolute;
     width: 100%;
@@ -106,18 +98,5 @@
     font-size: 30px;
     margin-bottom: 30px;
     z-index: 1;
-  }
-
-  .upload-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  .image-container {
-    position: relative;
-    display: inline-block;
-    width: 400px;
-    height: 400px;
-    margin-bottom: 10px;
   }
 </style>

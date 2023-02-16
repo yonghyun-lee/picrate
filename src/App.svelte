@@ -8,7 +8,7 @@
 
 <Router
   routes={{
-    '/review': Reviewer,
+    '/review/:id': Reviewer,
     '/home': Writer,
     '*': NotFound,
   }}
