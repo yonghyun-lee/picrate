@@ -10,7 +10,7 @@
       return;
     }
     isOpen = !!value;
-    url = `#/review/${value}`;
+    url = `${import.meta.env.VITE_BASE_URL}/#/review/${value}`;
   });
 </script>
 

@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://3.37.26.147',
+        target: 'http://api.picrate.xyz',
         changeOrigin: true,
         secure: false,
         ws: true,
