@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-const isMock = true;
+const isMock = false;
 
 if (isMock) {
   // eslint-disable-next-line no-console

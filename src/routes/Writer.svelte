@@ -5,15 +5,18 @@
   import Fields from '../lib/Fields.svelte';
   import UploadImage from '../lib/UploadImage.svelte';
   import { uploadedImage, currentFields, shareId } from '../store/store';
+  import type { Field } from '../types';
 
+  let imageFile: null | File = null;
   let imageUrl: null | string = null;
-  let fields = [];
+  let fields: Field[] = [];
 
   const subscribes: Unsubscriber[] = [
     uploadedImage.subscribe((value) => {
       if (!value) {
         return;
       }
+      imageFile = value;
       const reader = new FileReader();
       reader.onload = (event) => {
         imageUrl = event.target.result as string;
@@ -33,14 +36,17 @@
     if (fields.length > 10) {
       return;
     }
-    currentFields.set(
-      fields.concat({
+    currentFields.set([
+      ...fields,
+      {
         label: '클릭 수정',
         x: event.offsetX - 8,
         y: event.offsetY - 8,
         isOpen: false,
-      })
-    );
+        isEdit: false,
+        rate: null,
+      },
+    ]);
   }
 
   async function handleSubmit() {
@@ -49,15 +55,24 @@
       return;
     }
 
-    const response = await api.post(
-      `${import.meta.env.VITE_API_URL}/card`,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
+    const formData = new FormData();
+    formData.set('image', imageFile);
+    formData.set(
+      'fields',
+      JSON.stringify(
+        fields.map((field) => ({
+          label: field.label,
+          x: field.x,
+          y: field.y,
+        }))
+      )
     );
+
+    const response = await api.post('/api/v1/card', formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
     shareId.set(response.data.data.id);
   }
 </script>
@@ -74,7 +89,7 @@
     >
       <!-- svelte-ignore a11y-img-redundant-alt -->
       <img class="upload-image" src={imageUrl} alt="rate picture" />
-      <Fields />
+      <Fields isEditMode={true} />
     </div>
     <button
       type="button"
