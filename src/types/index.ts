@@ -1,4 +1,5 @@
 export type Field = {
+  id?: number;
   label: string;
   x: number;
   y: number;

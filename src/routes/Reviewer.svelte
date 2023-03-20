@@ -3,7 +3,11 @@
   import { api } from '../api';
   import Fields from '../lib/Fields.svelte';
   import Spinner from '../lib/Spinner.svelte';
-  import { currentFields } from '../store/store';
+  import {
+    currentFields,
+    currentReviewId,
+    isOpenNameModal,
+  } from '../store/store';
   import type { CardData } from '../types';
 
   let imageUrl: null | string = null;
@@ -17,9 +21,11 @@
     const response = await api.get<CardData>(
       `${import.meta.env.VITE_API_URL}/card/${id}`
     );
+    currentReviewId.set(id);
     currentFields.set(
       response.data.data.ratings.map((item) => {
         return {
+          id: item.id,
           isOpen: false,
           isEdit: false,
           label: item.label,
@@ -38,8 +44,12 @@
     fields = value;
   });
 
-  function handleSubmit() {
-    console.log('제출하기', fields);
+  async function handleSubmit() {
+    if (fields.some((field) => field.rate === undefined)) {
+      alert('모든 필드를 평가해주세요.');
+      return;
+    }
+    isOpenNameModal.set(true);
   }
 </script>
 

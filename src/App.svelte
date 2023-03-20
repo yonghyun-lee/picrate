@@ -1,5 +1,6 @@
 <script>
   import Router from 'svelte-spa-router';
+  import NameModal from './lib/NameModal.svelte';
   import ShareModal from './lib/ShareModal.svelte';
   import NotFound from './routes/NotFound.svelte';
   import Reviewer from './routes/Reviewer.svelte';
@@ -15,3 +16,4 @@
 />
 
 <ShareModal />
+<NameModal />
