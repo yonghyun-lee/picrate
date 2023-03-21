@@ -36,7 +36,7 @@
       })
     );
     imageUrl = `${import.meta.env.VITE_API_URL}/image/${
-      response.data.data.image.hash_name
+      response.data.data.image.id
     }`;
   });
 
