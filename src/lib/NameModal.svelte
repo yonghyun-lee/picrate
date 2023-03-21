@@ -25,6 +25,10 @@
   });
 
   async function handleSubmit() {
+    if (name.trim() === '') {
+      alert('평가자의 이름을 입력해주세요.');
+      return;
+    }
     try {
       await api.patch(
         `${import.meta.env.VITE_API_URL}/api/v1/ratings/card/${id}`,
