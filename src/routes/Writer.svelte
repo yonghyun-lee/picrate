@@ -68,11 +68,15 @@
       )
     );
 
-    const response = await api.post('/api/v1/card', formData, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    const response = await api.post(
+      `${import.meta.env.VITE_API_URL}/api/v1/card`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
     shareId.set(response.data.data.id);
   }
 </script>
