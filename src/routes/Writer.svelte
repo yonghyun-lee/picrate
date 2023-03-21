@@ -69,7 +69,7 @@
     );
 
     const response = await api.post(
-      `${import.meta.env.VITE_API_URL}/api/v1/card`,
+      `${import.meta.env.VITE_API_URL}/card`,
       formData,
       {
         headers: {

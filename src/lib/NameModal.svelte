@@ -30,18 +30,15 @@
       return;
     }
     try {
-      await api.patch(
-        `${import.meta.env.VITE_API_URL}/api/v1/ratings/card/${id}`,
-        {
-          name,
-          fields: fields.map((field) => {
-            return {
-              id: field.id,
-              rate: field.rate,
-            };
-          }),
-        }
-      );
+      await api.patch(`${import.meta.env.VITE_API_URL}/ratings/card/${id}`, {
+        name,
+        fields: fields.map((field) => {
+          return {
+            id: field.id,
+            rate: field.rate,
+          };
+        }),
+      });
       alert('평가 완료');
     } catch (e) {
       console.log(e);
