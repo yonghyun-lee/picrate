@@ -30,7 +30,7 @@
       return;
     }
     try {
-      await api.patch(`${import.meta.env.VITE_API_URL}/ratings/card/${id}`, {
+      await api.post(`${import.meta.env.VITE_API_URL}/ratings/card/${id}`, {
         name,
         fields: fields.map((field) => {
           return {
