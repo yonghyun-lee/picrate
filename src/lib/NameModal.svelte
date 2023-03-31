@@ -1,10 +1,7 @@
 <script lang="ts">
+  import { push } from 'svelte-spa-router';
   import { api } from '../api';
-  import {
-    currentFields,
-    currentReviewId,
-    isOpenNameModal,
-  } from '../store/store';
+  import { currentFields, currentId, isOpenNameModal } from '../store/store';
   import Modal from './Modal.svelte';
 
   let isOpen: boolean = false;
@@ -20,7 +17,7 @@
     isOpen = value;
   });
 
-  currentReviewId.subscribe((value) => {
+  currentId.subscribe((value) => {
     id = value;
   });
 
@@ -39,7 +36,9 @@
           };
         }),
       });
+      isOpenNameModal.set(false);
       alert('평가 완료');
+      push('/complete');
     } catch (e) {
       console.log(e);
     }
@@ -47,9 +46,14 @@
 </script>
 
 <Modal {isOpen}>
+  <label
+    for="name"
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    >평가자 이름</label
+  >
   <input
     type="text"
-    id="small-input"
+    id="name"
     class="font-semibold text-xs block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 xs:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     bind:value={name}
   />

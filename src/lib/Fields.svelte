@@ -5,6 +5,7 @@
   import Rating from './Rating.svelte';
 
   export let isEditMode: boolean = false;
+  export let isResult: boolean = false;
   let data: Field[] = [];
 
   const unsubscribe = currentFields.subscribe((value) => {
@@ -24,7 +25,9 @@
     }
     currentFields.set(
       data.map((field) => {
-        field.isOpen = false;
+        if (field.x === x && field.y === y) {
+          field.isOpen = false;
+        }
         return field;
       })
     );
@@ -58,7 +61,7 @@
         data-popover
         id="popover-default"
         role="tooltip"
-        style="top: -85px"
+        style="top: -85px; width: auto;"
         class="absolute z-10 inline-block w-32 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
       >
         <div
@@ -81,7 +84,7 @@
               class="font-semibold text-xs text-gray-900 dark:text-white ellipsis"
               style="white-space: nowrap; overflow: hidden"
               on:mousedown={() => {
-                if (!isEditMode) {
+                if (!isEditMode || !isResult) {
                   return;
                 }
                 field.isEdit = true;
@@ -90,7 +93,7 @@
               {field.label}
             </h4>
           {/if}
-          {#if isEditMode}
+          {#if isEditMode || isResult}
             <svg
               fill="none"
               stroke="currentColor"
@@ -110,8 +113,11 @@
             </svg>
           {/if}
         </div>
-        <div class="px-3 py-2">
+        <div class="flex px-3 py-2">
           <Rating disabled={isEditMode} bind:value={field.rate} />
+          {#if isResult}
+            <span style="margin-left: 5px;">{field.rate}</span>
+          {/if}
         </div>
       </div>
     {/if}

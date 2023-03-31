@@ -8,7 +8,7 @@ export type Field = {
   isEdit: boolean;
 };
 
-export type CardData = {
+export type CardResponse = {
   data: {
     id: number;
     created_at: string;
@@ -37,5 +37,15 @@ export type CardData = {
       }
     ];
   };
+  error: null;
+};
+
+export type RatingResponse = {
+  data: {
+    label: string;
+    rating_id: number;
+    rating_average: number;
+    rating_sum: number;
+  }[];
   error: null;
 };

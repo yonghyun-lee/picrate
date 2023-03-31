@@ -14,7 +14,7 @@
 <div class="rating-container">
   {#each Array(STAR_COUNT) as _, index (`${index}-${value !== null ? index < value : false}`)}
     <Star
-      value={value !== null ? index < value : false}
+      value={value !== null ? index < Math.round(value) : false}
       {disabled}
       on:click={() => handleClick(index)}
     />
