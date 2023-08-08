@@ -38,7 +38,7 @@
       });
       isOpenNameModal.set(false);
       alert('평가 완료');
-      push('/complete');
+      push(`/complete/${id}`);
     } catch (e) {
       console.log(e);
     }
@@ -49,7 +49,7 @@
   <label
     for="name"
     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-    >평가자 이름</label
+    >평가자의 이름을 입력해주세요.</label
   >
   <input
     type="text"

@@ -14,7 +14,7 @@
     '/result/:id': Result,
     '/review/:id': Reviewer,
     '/home': Writer,
-    '/complete': Complete,
+    '/complete/:id': Complete,
     '*': NotFound,
   }}
 />

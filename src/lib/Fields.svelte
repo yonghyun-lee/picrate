@@ -84,10 +84,17 @@
               class="font-semibold text-xs text-gray-900 dark:text-white ellipsis"
               style="white-space: nowrap; overflow: hidden"
               on:mousedown={() => {
-                if (!isEditMode || !isResult) {
+                if (!isEditMode || isResult) {
                   return;
                 }
-                field.isEdit = true;
+                currentFields.set(
+                  data.map((field, i) => {
+                    if (i === index) {
+                      field.isEdit = !field.isEdit;
+                    }
+                    return field;
+                  })
+                );
               }}
             >
               {field.label}
