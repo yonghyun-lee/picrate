@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import { currentFields } from '../store/store';
   import type { Field } from '../types';
   import Rating from './Rating.svelte';
@@ -10,10 +10,6 @@
 
   const unsubscribe = currentFields.subscribe((value) => {
     data = value;
-  });
-
-  onDestroy(() => {
-    unsubscribe();
   });
 
   function handleClickClose(x: number, y: number) {
@@ -44,6 +40,30 @@
       })
     );
   }
+
+  function handleMouseDown(e: MouseEvent) {
+    if (data.every((item) => !item.isEdit)) {
+      return;
+    }
+    e.preventDefault();
+    currentFields.set(
+      data.map((field) => {
+        if (field.isEdit) {
+          field.isEdit = false;
+        }
+        return field;
+      })
+    );
+  }
+
+  onMount(() => {
+    document.addEventListener('mousedown', handleMouseDown);
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+    document.removeEventListener('mousedown', handleMouseDown);
+  });
 </script>
 
 {#each data as field, index (index)}
