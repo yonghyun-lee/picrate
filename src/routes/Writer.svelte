@@ -83,7 +83,6 @@
 
 <div class="init-page">
   {#if !imageUrl}
-    <img class="background" src="../public/background.jpg" alt="background" />
     <h1 class="guide">평가받고 싶은 사진을<br /> 올려주세요!</h1>
     <UploadImage />
   {:else}
@@ -107,15 +106,6 @@
 </div>
 
 <style>
-  .background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    opacity: 0.8;
-  }
-
   .guide {
     font-size: 30px;
     margin-bottom: 30px;
