@@ -33,7 +33,7 @@
   });
 
   function handleClick(event: MouseEvent) {
-    if (fields.length > 10) {
+    if (fields.length > 9) {
       return;
     }
     currentFields.set([
@@ -87,11 +87,9 @@
     <h1 class="guide">평가받고 싶은 사진을<br /> 올려주세요!</h1>
     <UploadImage />
   {:else}
-    <p class="m-3">1. 평가 받을 부분을 찍어 필드를 생성하세요.</p>
-    <p class="m-3">
-      2. 생성된 점을 클릭한 후 필드 라벨을 클릭해 라벨명을 변경하세요.
-    </p>
-    <p class="m-3">3. 저장하기 후 링크 공유하면 완료.</p>
+    <p>1. 평가 받을 부분을 찍어 필드를 생성하세요.(최대 10개 가능)</p>
+    <p>2. 생성된 점을 클릭한 후 필드 라벨을 클릭해 라벨명을 변경하세요.</p>
+    <p class="mb-4">3. 저장하기 후 링크 공유하면 완료.</p>
     <div
       class="image-container border border-gray-400 rounded"
       on:mousedown={handleClick}
